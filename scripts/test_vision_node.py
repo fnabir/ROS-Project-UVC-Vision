@@ -9,7 +9,7 @@ from cv_bridge import CvBridge, CvBridgeError
 class TestVisionNode :
     def __init__(self):
         #initialize node (name)
-        #rospy.init_node("test_vision_node")
+        rospy.init_node("test_vision_node")
         #create the cvbridge object
         self.bridge = CvBridge()
         #subscribe to raw image/compressed topic
@@ -24,14 +24,12 @@ class TestVisionNode :
     #display image
         cv2.imshow("image",cv_image)
         cv2.waitkey(1) #refresh every second
-
-def main():
-    vn=TestVisionNode()
-    rospy.init_node("test_vision_node")
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        print("Node Shutdown")
-    cv2.closeAllWindows()
-if __name__ == "__main__":
-    main()
+    def main(args):
+        vn=TestVisionNode()
+        try:
+            rospy.spin()
+        except KeyboardInterrupt:
+            print("Node Shutdown")
+            cv2.closeAllWindows()
+    if __name__ == "__main__":
+        main(sys.argv)
